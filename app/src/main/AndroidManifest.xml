@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".UsersRequestsActivity"></activity>
+        <activity android:name=".RequestListActivity"></activity>
     </application>
 
 </manifest>

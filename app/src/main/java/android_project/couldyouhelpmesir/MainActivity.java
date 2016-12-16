@@ -50,7 +50,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.new_request) {
             //Остаемся
         } else if (id == R.id.request_list) {
+            startActivity(new Intent(this, RequestListActivity.class));
 
+        } else if (id == R.id.users_requests) {
+            startActivity(new Intent(this, UsersRequestsActivity.class));
         } else if (id == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
