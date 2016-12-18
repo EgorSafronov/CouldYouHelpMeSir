@@ -29,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         editor.putString("first_name", first_name.getText().toString());
         editor.putString("second_name", second_name.getText().toString());
         editor.putString("id", second_name.getText().toString());
+        editor.commit();
         finish();
     }
 }
