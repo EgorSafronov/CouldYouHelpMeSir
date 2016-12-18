@@ -26,21 +26,6 @@ public class MainActivity extends AppCompatActivity
     public static final String APP_PREFERENCES = "helpsettings";
 
 
-
-    public class Request {
-        public String first_name;
-        public String second_name;
-        public String problem;
-
-        public Request() {};
-
-        public Request(String first_name, String second_name, String problem) {
-            this.first_name = first_name;
-            this.second_name = second_name;
-            this.problem = problem;
-        }
-    }
-
     Button template1;
     Button sendRequest;
     DatabaseReference mDatabase;
@@ -91,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         String second_name = mSettings.getString("second_name", "");
         String userId = mSettings.getString("id", "");
         if (view == template1) {
-            mDatabase.child(userId).setValue(new Request(first_name, second_name, "УБИВАЮТ СУКИ"));
+            mDatabase.child(userId).setValue(new Request(first_name, second_name, "УБИВАЮТ ****"));
             inDanger = true;
         }
         else if (view == sendRequest){
