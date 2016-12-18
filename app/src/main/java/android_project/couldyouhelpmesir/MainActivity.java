@@ -1,6 +1,8 @@
 package android_project.couldyouhelpmesir;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,9 +11,40 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    public static SharedPreferences mSettings;
+    public static final String APP_PREFERENCES = "helpsettings";
+
+
+
+    public class Request {
+        public String first_name;
+        public String second_name;
+        public String problem;
+
+        public Request() {};
+
+        public Request(String first_name, String second_name, String problem) {
+            this.first_name = first_name;
+            this.second_name = second_name;
+            this.problem = problem;
+        }
+    }
+
+    Button template1;
+    Button sendRequest;
+    DatabaseReference mDatabase;
+    EditText problem;
+    boolean inDanger = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,16 +52,23 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        template1 = (Button) findViewById(R.id.main_button_1_1);
+        sendRequest = (Button) findViewById(R.id.send_request);
+        template1.setOnClickListener(this);
+        sendRequest.setOnClickListener(this);
+        problem = (EditText) findViewById(R.id.help_text);
     }
 
     @Override
@@ -39,6 +79,24 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (inDanger) {
+            return;
+        }
+
+        String first_name = mSettings.getString("first_name", "");
+        String second_name = mSettings.getString("second_name", "");
+        String userId = mSettings.getString("id", "");
+        if (view == template1) {
+            mDatabase.child(userId).setValue(new Request(first_name, second_name, "УБИВАЮТ СУКИ"));
+        }
+        else {
+            mDatabase.child(userId).setValue(new Request(first_name, second_name, problem.getText().toString()));
+        }
+        inDanger = true;
     }
 
 
@@ -54,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.users_requests) {
             startActivity(new Intent(this, UsersRequestsActivity.class));
+
         } else if (id == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
