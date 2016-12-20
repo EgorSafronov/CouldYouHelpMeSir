@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     public static SharedPreferences mSettings;
     public static final String APP_PREFERENCES = "helpsettings";
 
+    public android.support.v7.widget.Toolbar toolbar;
 
     Button template1;
     Button sendRequest;
@@ -32,11 +34,13 @@ public class MainActivity extends AppCompatActivity
     EditText problem;
     boolean inDanger = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
