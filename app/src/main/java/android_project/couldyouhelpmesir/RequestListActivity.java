@@ -9,11 +9,24 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by egorsafronov on 00.12.2016
@@ -24,6 +37,33 @@ public class RequestListActivity extends AppCompatActivity
 
     public android.support.v7.widget.Toolbar toolbar;
 
+
+    private RecyclerView recyclerView;
+
+    private List<Request> requests = new ArrayList<Request>();
+
+    @Nullable
+    private RequestsRecyclerAdapter adapter;
+
+    DatabaseReference mDatabase;
+
+
+    ValueEventListener listener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot snapshot) {
+            for (DataSnapshot snap : snapshot.getChildren()) {
+                Request cur = snap.getValue(Request.class);
+                if (cur != null) {
+                    requests.add(cur);
+                }
+            }
+            displayNonEmptyData();
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +79,32 @@ public class RequestListActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        // TODO: 16.12.16 Реализовать отображение списка запросов и действия с ними
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
+        //errorTextView = (TextView) findViewById(R.id.error_text);
+
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        loadData();
+
+    }
+
+    private void loadData() {
+        requests.clear();
+        mDatabase.addListenerForSingleValueEvent(listener);
+    }
+
+
+    private void displayNonEmptyData() {
+        if (adapter == null) {
+            adapter = new RequestsRecyclerAdapter(this);
+            recyclerView.setAdapter(adapter);
+        }
+        adapter.setRequests(requests);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
