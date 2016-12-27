@@ -8,15 +8,32 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        >
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Заполните все поля"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/big_text_size"
+            android:gravity="center"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:paddingTop="@dimen/settings_between_fields"/>
 
         <TextView
             android:text="Фамилия"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/settings_between_fields"/>
 
         <EditText
             android:id="@+id/second_name"
@@ -26,7 +43,8 @@
         <TextView
             android:text="Имя"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/settings_between_fields"/>
 
         <EditText
             android:id="@+id/first_name"
@@ -40,8 +58,9 @@
             android:text="Сохранить данные"
             android:layout_gravity="right"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
+    </ScrollView>
 
     <include
         layout="@layout/app_bar_main"

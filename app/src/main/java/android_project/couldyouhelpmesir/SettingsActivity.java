@@ -1,5 +1,6 @@
 package android_project.couldyouhelpmesir;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -18,9 +19,12 @@ import android.widget.EditText;
 
 public class SettingsActivity extends AppCompatActivity
         implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-
     EditText first_name;
     EditText second_name;
+    SharedPreferences mSettings;
+
+    public static final String DATA_FIRST_NAME = "first_name";
+    public static final String DATA_SECOND_NAME = "second_name";
 
     public android.support.v7.widget.Toolbar toolbar;
 
@@ -29,8 +33,12 @@ public class SettingsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
         first_name = (EditText) findViewById(R.id.first_name);
+        first_name.setText(mSettings.getString(DATA_FIRST_NAME, ""));
         second_name = (EditText) findViewById(R.id.second_name);
+        second_name.setText(mSettings.getString(DATA_SECOND_NAME, ""));
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,11 +56,19 @@ public class SettingsActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         SharedPreferences.Editor editor = MainActivity.mSettings.edit();
-        editor.putString("first_name", first_name.getText().toString());
-        editor.putString("second_name", second_name.getText().toString());
-        editor.putString("id", second_name.getText().toString());
+        boolean flag_filled = true;
+        editor.putString(DATA_FIRST_NAME, first_name.getText().toString());
+        if (first_name.getText().toString().equals("")) flag_filled = false;
+
+        editor.putString(DATA_SECOND_NAME, second_name.getText().toString());
+        if (second_name.getText().toString().equals("")) flag_filled = false;
+
+//        editor.putString("id", second_name.getText().toString());
+
+        editor.putBoolean(MainActivity.FILLED_PERSONAL_INFORMATION, flag_filled);
+
         editor.commit();
-        finish();
+        if (flag_filled) finish();
     }
     @Override
     public void onBackPressed() {

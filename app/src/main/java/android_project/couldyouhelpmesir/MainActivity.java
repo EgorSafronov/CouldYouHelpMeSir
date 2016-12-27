@@ -3,7 +3,9 @@ package android_project.couldyouhelpmesir;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,7 +26,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     public static SharedPreferences mSettings;
+    private static final String TAG = "MainActivity";
+
     public static final String APP_PREFERENCES = "helpsettings";
+    public static final String FILLED_PERSONAL_INFORMATION = "filledinfo";
 
     public android.support.v7.widget.Toolbar toolbar;
 
@@ -43,11 +48,19 @@ public class MainActivity extends AppCompatActivity
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        boolean flag_filled_info = false;
+        if (mSettings.contains(FILLED_PERSONAL_INFORMATION)) {
+            flag_filled_info = mSettings.getBoolean(FILLED_PERSONAL_INFORMATION, false);
+        }
+        if (!flag_filled_info) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -78,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         }
         String first_name = mSettings.getString("first_name", "");
         String second_name = mSettings.getString("second_name", "");
-        String userId = mSettings.getString("id", "");
+        String userId = mSettings.getString("id", "");//TODO: генерировать ID
         if (view == template1) {
             mDatabase.child(userId).setValue(new Request(first_name, second_name, "УБИВАЮТ ****"));
             inDanger = true;
