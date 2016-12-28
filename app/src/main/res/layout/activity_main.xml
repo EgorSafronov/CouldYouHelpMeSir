@@ -137,12 +137,17 @@
                 android:id="@+id/request_info"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/settings_between_fields"
+                android:layout_marginLeft="@dimen/settings_between_fields"
                 android:text="Запрос отправлен"/>
             <Button
                 android:id="@+id/request_delete"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Удалить запрос"
+                android:layout_marginLeft="@dimen/settings_between_fields"
+                android:layout_marginTop="@dimen/settings_between_fields"
+                android:background="@drawable/main_button_off"
                 />
         </LinearLayout>
 

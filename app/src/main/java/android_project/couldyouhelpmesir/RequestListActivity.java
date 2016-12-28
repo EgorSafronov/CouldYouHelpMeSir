@@ -32,6 +32,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.GONE;
+
+
 /**
  * Created by egorsafronov on 00.12.2016
  */
@@ -45,6 +48,7 @@ public class RequestListActivity extends AppCompatActivity
     public static final String APP_PREFERENCES = "helpsettings";
 
     private RecyclerView recyclerView;
+    private TextView errorTextView;
 
     private List<Request> requests = new ArrayList<Request>();
 
@@ -95,8 +99,7 @@ public class RequestListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-
-        //errorTextView = (TextView) findViewById(R.id.error_text);
+        errorTextView = (TextView) findViewById(R.id.error_message);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -107,7 +110,7 @@ public class RequestListActivity extends AppCompatActivity
         if (userID == null) {
             userID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         }
-
+        recyclerView.addItemDecoration(new RecylcerDividersDecorator(getResources().getColor(R.color.colorBirthday)));
         loadData();
 
     }
@@ -119,6 +122,13 @@ public class RequestListActivity extends AppCompatActivity
                 mDatabase.addListenerForSingleValueEvent(listener);
             }
         }).start();
+        if (!requests.isEmpty()) {
+            recyclerView.setVisibility(View.VISIBLE);
+            errorTextView.setVisibility(GONE);
+        } else {
+            recyclerView.setVisibility(GONE);
+            errorTextView.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -129,6 +139,7 @@ public class RequestListActivity extends AppCompatActivity
         }
         adapter.setRequests(requests);
         recyclerView.setVisibility(View.VISIBLE);
+        errorTextView.setVisibility(GONE);
     }
 
     @Override

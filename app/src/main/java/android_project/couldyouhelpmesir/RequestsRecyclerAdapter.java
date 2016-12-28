@@ -41,7 +41,11 @@ public class RequestsRecyclerAdapter
         final Request request = requests.get(position);
         //holder.firstnameView.setText(request.first_name);
         //holder.secondnameView.setText(request.second_name);
-        holder.descriptionView.setText("ОПИСАНИЕ: " + request.problem);
+        if (!request.problem.equals("")) {
+            holder.descriptionView.setText("ОПИСАНИЕ: " + request.problem);
+        } else {
+            holder.descriptionView.setText("ОПИСАНИЕ: -" );
+        }
         holder.firstNameView.setText("ИМЯ: " + request.first_name);
         holder.secondNameView.setText("ФАМИЛИЯ: " + request.second_name);
         holder.emailView.setText("EMAIL: " + request.email);
@@ -62,8 +66,6 @@ public class RequestsRecyclerAdapter
 
     static class RequestsViewHolder extends RecyclerView.ViewHolder {
 
-        //final TextView firstnameView;
-        //final TextView secondnameView;
         final TextView descriptionView;
         final TextView labelView;
         final TextView firstNameView;

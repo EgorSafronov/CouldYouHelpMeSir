@@ -22,17 +22,19 @@
             android:background="@color/colorCalcBackground"
             android:layout_marginTop="?attr/actionBarSize" />
 
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorBirthday"
+            android:textSize="@dimen/big_text_size"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="INTERNET CONNECTION ERROR"/>
+
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/error_message"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/colorBirthday"
-        android:textSize="@dimen/big_text_size"
-        android:visibility="gone"
-        android:gravity="center"
-        android:text="INTERNET CONNETCION ERROR"/>
 
     <include
         layout="@layout/app_bar_main"

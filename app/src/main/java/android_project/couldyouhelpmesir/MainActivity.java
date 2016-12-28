@@ -168,9 +168,10 @@ public class MainActivity extends AppCompatActivity
 
         request_type = -1;
         for (int i = 0; i < 6; i++) {
-            if (view == templates[i]) {
+            if (view == templates[i] && templates[i].getAlpha() == 1) {
                 if (!button_touched) {
                     request_type = i;
+
                     button_touched = true;
                     for (int j = 0; j < 6; j++) {
                         if (j != i) templates[j].setAlpha((float) 0.3);
