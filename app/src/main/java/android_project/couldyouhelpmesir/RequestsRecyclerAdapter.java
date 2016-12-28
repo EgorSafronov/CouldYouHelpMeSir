@@ -41,7 +41,18 @@ public class RequestsRecyclerAdapter
         final Request request = requests.get(position);
         //holder.firstnameView.setText(request.first_name);
         //holder.secondnameView.setText(request.second_name);
-        holder.descriptionView.setText(request.problem);
+        holder.descriptionView.setText("ОПИСАНИЕ: " + request.problem);
+        holder.firstNameView.setText("ИМЯ: " + request.first_name);
+        holder.secondNameView.setText("ФАМИЛИЯ: " + request.second_name);
+        holder.emailView.setText("EMAIL: " + request.email);
+        holder.phoneNumberView.setText("PHONE NUMBER: " + request.phone_number);
+        if (request.type == 0) holder.labelView.setText("ТИП: ПОЖАР");
+        if (request.type == 1) holder.labelView.setText("ТИП: НАПАДЕНИЕ");
+        if (request.type == 2) holder.labelView.setText("ТИП: МЕДПОМОЩЬ");
+        if (request.type == 3) holder.labelView.setText("ТИП: УГОН");
+        if (request.type == 4) holder.labelView.setText("ТИП: ТЕРАКТ");
+        if (request.type == 5) holder.labelView.setText("ТИП: ФИЗ.СИЛА");
+        if (request.type == -1) holder.labelView.setText("ТИП: НЕИЗВЕСТНО");
     }
 
     @Override
@@ -54,10 +65,20 @@ public class RequestsRecyclerAdapter
         //final TextView firstnameView;
         //final TextView secondnameView;
         final TextView descriptionView;
+        final TextView labelView;
+        final TextView firstNameView;
+        final TextView secondNameView;
+        final TextView emailView;
+        final TextView phoneNumberView;
 
         private RequestsViewHolder(View itemView) {
             super(itemView);
             descriptionView = (TextView) itemView.findViewById(R.id.request_description);
+            labelView = (TextView) itemView.findViewById(R.id.request_label);
+            firstNameView = (TextView) itemView.findViewById(R.id.request_first_name);
+            secondNameView = (TextView) itemView.findViewById(R.id.request_second_name);
+            emailView = (TextView) itemView.findViewById(R.id.request_email);
+            phoneNumberView = (TextView) itemView.findViewById(R.id.request_phone_number);
         }
 
         static RequestsViewHolder newInstance(LayoutInflater layoutInflater, ViewGroup parent) {

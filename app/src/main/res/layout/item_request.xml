@@ -1,13 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-    android:id="@+id/request_description"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="25sp"
-    android:textStyle="bold"/>
+        android:id="@+id/request_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/settings_between_fields"
+        android:layout_marginTop="@dimen/settings_between_fields"
+        />
+    <TextView
+        android:id="@+id/request_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/settings_between_fields"
+        />
+    <TextView
+            android:id="@+id/request_second_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/medium_text_size"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="@dimen/settings_between_fields"
+    />
+    <TextView
+        android:id="@+id/request_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/settings_between_fields"
+        />
+    <TextView
+        android:id="@+id/request_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/settings_between_fields"
+        />
+    <TextView
+        android:id="@+id/request_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:layout_marginLeft="@dimen/settings_between_fields"
+        android:layout_marginTop="@dimen/settings_between_fields"
+        android:layout_marginRight="@dimen/settings_between_fields"
+        android:textColor="@color/colorBirthday"
+        android:textStyle="bold"/>
+
+
+
+
 
 </LinearLayout>

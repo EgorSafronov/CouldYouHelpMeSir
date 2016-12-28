@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:id="@+id/recycler"
             android:layout_gravity="start"
+            android:background="@color/colorCalcBackground"
             android:layout_marginTop="?attr/actionBarSize" />
 
     </FrameLayout>

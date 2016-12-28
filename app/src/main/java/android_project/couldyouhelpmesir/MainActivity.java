@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     public android.support.v7.widget.Toolbar toolbar;
 
     Button templates[] = new Button[6];
+    int request_type = -1;
     Button sendRequest;
     Button deleteRequest;
     TextView deleteText;
@@ -125,7 +126,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-        int request_type = -1;
         String first_name = mSettings.getString(SettingsActivity.DATA_FIRST_NAME, "");
         String second_name = mSettings.getString(SettingsActivity.DATA_SECOND_NAME, "");
         String email = mSettings.getString(SettingsActivity.DATA_EMAIL, "");
@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity
         if (inDanger) {
             return;
         }
+        int request_type = -1;
         for (int i = 0; i < 6; i++) {
             if (view == templates[i]) {
                 if (!button_touched) {
