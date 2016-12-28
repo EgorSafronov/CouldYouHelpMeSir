@@ -29,9 +29,11 @@
         </activity>
         <activity android:name=".SettingsActivity"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".RequestListActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

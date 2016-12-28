@@ -29,9 +29,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/settings_between_fields"
                     android:layout_marginTop="@dimen/settings_between_fields"
-                    android:text="PUSH"
                     android:background="@drawable/main_button_off"
                     android:minHeight="@dimen/min_button_height"
+                    android:text="ПОЖАР"
+                    android:textSize="@dimen/medium_text_size"
                     android:layout_weight="1" />
 
                 <Button
@@ -42,6 +43,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/main_button_off"
                     android:minHeight="@dimen/min_button_height"
+                    android:text="НАПАДЕНИЕ"
+                    android:textSize="@dimen/medium_text_size"
                     android:layout_weight="1" />
 
                 <Button
@@ -53,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/main_button_off"
                     android:minHeight="@dimen/min_button_height"
+                    android:text="МЕДПОМОЩЬ"
+                    android:textSize="@dimen/medium_text_size"
                     android:layout_weight="1" />
 
             </TableRow>
@@ -66,6 +71,8 @@
                     android:layout_marginTop="@dimen/main_between_buttons"
                     android:background="@drawable/main_button_off"
                     android:minHeight="@dimen/min_button_height"
+                    android:text="УГОН"
+                    android:textSize="@dimen/medium_text_size"
                     android:layout_weight="1" />
 
                 <Button
@@ -76,6 +83,8 @@
                     android:layout_marginTop="@dimen/main_between_buttons"
                     android:background="@drawable/main_button_off"
                     android:minHeight="@dimen/min_button_height"
+                    android:text="ТЕРАКТ"
+                    android:textSize="@dimen/medium_text_size"
                     android:layout_weight="1" />
 
                 <Button
@@ -87,13 +96,15 @@
                     android:layout_marginTop="@dimen/main_between_buttons"
                     android:background="@drawable/main_button_off"
                     android:minHeight="@dimen/min_button_height"
+                    android:text="ФИЗ.СИЛА"
+                    android:textSize="@dimen/medium_text_size"
                     android:layout_weight="1" />
 
             </TableRow>
         </TableLayout>
 
         <TextView
-            android:text="Опишите проблему"
+            android:text="Описание проблемы:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/settings_between_fields"
