@@ -102,6 +102,8 @@ public class RequestListActivity extends AppCompatActivity
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         errorTextView = (TextView) findViewById(R.id.error_message);
+        recyclerView.setVisibility(View.VISIBLE);
+        errorTextView.setVisibility(GONE);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -181,6 +183,7 @@ public class RequestListActivity extends AppCompatActivity
 
         } else if (id == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

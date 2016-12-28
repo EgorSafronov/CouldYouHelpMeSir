@@ -154,6 +154,9 @@ public class SettingsActivity extends AppCompatActivity
 
 
         editor.commit();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+
     }
     @Override
     public void onBackPressed() {
@@ -176,6 +179,7 @@ public class SettingsActivity extends AppCompatActivity
 
         } else if (id == R.id.request_list) {
             startActivity(new Intent(this, RequestListActivity.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

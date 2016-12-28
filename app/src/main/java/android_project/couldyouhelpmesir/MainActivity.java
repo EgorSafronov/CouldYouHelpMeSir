@@ -203,6 +203,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
