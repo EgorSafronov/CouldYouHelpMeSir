@@ -16,15 +16,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 
 public class SettingsActivity extends AppCompatActivity
         implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     EditText first_name;
     EditText second_name;
+    EditText email;
+    EditText phone_number;
+    ScrollView scrollView;
     SharedPreferences mSettings;
 
     public static final String DATA_FIRST_NAME = "first_name";
     public static final String DATA_SECOND_NAME = "second_name";
+    public static final String DATA_EMAIL = "email";
+    public static final String DATA_PHONE_NUMBER = "phone_number";
 
     public android.support.v7.widget.Toolbar toolbar;
 
@@ -34,11 +40,18 @@ public class SettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
-
         first_name = (EditText) findViewById(R.id.first_name);
         first_name.setText(mSettings.getString(DATA_FIRST_NAME, ""));
+
         second_name = (EditText) findViewById(R.id.second_name);
         second_name.setText(mSettings.getString(DATA_SECOND_NAME, ""));
+
+        email = (EditText) findViewById(R.id.email);
+        email.setText(mSettings.getString(DATA_EMAIL, ""));
+
+        phone_number = (EditText) findViewById(R.id.phone_number);
+        phone_number.setText(mSettings.getString(DATA_PHONE_NUMBER, ""));
+
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -51,6 +64,7 @@ public class SettingsActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        scrollView = (ScrollView) findViewById(R.id.settings_scroll_view);
     }
 
     @Override
@@ -63,6 +77,11 @@ public class SettingsActivity extends AppCompatActivity
         editor.putString(DATA_SECOND_NAME, second_name.getText().toString());
         if (second_name.getText().toString().equals("")) flag_filled = false;
 
+        editor.putString(DATA_EMAIL, email.getText().toString());
+        if (email.getText().toString().equals("")) flag_filled = false;
+
+        editor.putString(DATA_PHONE_NUMBER, phone_number.getText().toString());
+        if (phone_number.getText().toString().equals("")) flag_filled = false;
 //        editor.putString("id", second_name.getText().toString());
 
         editor.putBoolean(MainActivity.FILLED_PERSONAL_INFORMATION, flag_filled);

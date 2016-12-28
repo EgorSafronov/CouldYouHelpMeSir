@@ -3,15 +3,20 @@ package android_project.couldyouhelpmesir;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity
 
     public android.support.v7.widget.Toolbar toolbar;
 
-    Button template1;
+    Button templates[] = new Button[6];
     Button sendRequest;
     DatabaseReference mDatabase;
     EditText problem;
@@ -44,6 +49,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE);
+
+        if (permissionCheck == -1) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
+        }
+
+
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,9 +81,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        template1 = (Button) findViewById(R.id.main_button_1_1);
+        templates[0] = (Button) findViewById(R.id.main_button_1_1);
+        templates[1] = (Button) findViewById(R.id.main_button_1_2);
+        templates[2] = (Button) findViewById(R.id.main_button_1_3);
+        templates[3] = (Button) findViewById(R.id.main_button_2_1);
+        templates[4] = (Button) findViewById(R.id.main_button_2_2);
+        templates[5] = (Button) findViewById(R.id.main_button_2_3);
         sendRequest = (Button) findViewById(R.id.send_request);
-        template1.setOnClickListener(this);
+        for (int i = 0; i < 6; i++) {
+            templates[i].setOnClickListener(this);
+        }
         sendRequest.setOnClickListener(this);
         problem = (EditText) findViewById(R.id.help_text);
     }
@@ -89,18 +110,30 @@ public class MainActivity extends AppCompatActivity
         if (inDanger) {
             return;
         }
-        String first_name = mSettings.getString("first_name", "");
-        String second_name = mSettings.getString("second_name", "");
-        String userId = mSettings.getString("id", "");//TODO: генерировать ID
-        if (view == template1) {
-            mDatabase.child(userId).setValue(new Request(first_name, second_name, "УБИВАЮТ ****"));
-            inDanger = true;
+
+        int request_type = -1;
+        String first_name = mSettings.getString(SettingsActivity.DATA_FIRST_NAME, "");
+        String second_name = mSettings.getString(SettingsActivity.DATA_SECOND_NAME, "");
+        String email = mSettings.getString(SettingsActivity.DATA_EMAIL, "");
+        String phone_number = mSettings.getString(SettingsActivity.DATA_PHONE_NUMBER, "");
+//        String userID = mSettings.getString("id", "");
+
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        String userID = telephonyManager.getDeviceId();
+
+        for (int i = 0; i < 6; i++) {
+            if (view == templates[i]) {
+                request_type = i;
+                templates[i].setVisibility(View.INVISIBLE);
+            }
         }
-        else if (view == sendRequest){
-            mDatabase.child(userId).setValue(new Request(first_name, second_name, problem.getText().toString()));
+        if (view == sendRequest){
+            mDatabase.child(userID).setValue(new Request(first_name, second_name, email, phone_number,
+                    problem.getText().toString(), request_type));
             inDanger = true;
         }
     }
+
 
 
     @SuppressWarnings("StatementWithEmptyBody")
