@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     DatabaseReference mDatabase;
     EditText problem;
     boolean inDanger = false;
+    boolean button_touched = false;
 
 
     @Override
@@ -123,8 +124,21 @@ public class MainActivity extends AppCompatActivity
 
         for (int i = 0; i < 6; i++) {
             if (view == templates[i]) {
-                request_type = i;
-                templates[i].setVisibility(View.INVISIBLE);
+                if (!button_touched) {
+                    request_type = i;
+                    button_touched = true;
+                    for (int j = 0; j < 6; j++) {
+                        if (j != i) templates[j].setAlpha((float) 0.3);
+
+                    }
+                } else {
+                    button_touched = false;
+                    request_type = -1;
+                    for (int j = 0; j < 6; j++) {
+                        if (j != i) templates[j].setAlpha(1);
+                    }
+                }
+//                templates[i].setVisibility(View.INVISIBLE);
             }
         }
         if (view == sendRequest){
@@ -145,9 +159,6 @@ public class MainActivity extends AppCompatActivity
             //Остаемся
         } else if (id == R.id.request_list) {
             startActivity(new Intent(this, RequestListActivity.class));
-
-        } else if (id == R.id.users_requests) {
-            startActivity(new Intent(this, UsersRequestsActivity.class));
 
         } else if (id == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    android:background="@color/colorCalcBackground">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,19 +27,32 @@
                     android:id="@+id/main_button_1_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/settings_between_fields"
+                    android:layout_marginTop="@dimen/settings_between_fields"
                     android:text="PUSH"
+                    android:background="@drawable/main_button_off"
+                    android:minHeight="@dimen/min_button_height"
                     android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/main_button_1_2"
+                    android:layout_marginLeft="@dimen/main_between_buttons"
+                    android:layout_marginTop="@dimen/settings_between_fields"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/main_button_off"
+                    android:minHeight="@dimen/min_button_height"
                     android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/main_button_1_3"
+                    android:layout_marginLeft="@dimen/main_between_buttons"
+                    android:layout_marginRight="@dimen/settings_between_fields"
+                    android:layout_marginTop="@dimen/settings_between_fields"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/main_button_off"
+                    android:minHeight="@dimen/min_button_height"
                     android:layout_weight="1" />
 
             </TableRow>
@@ -48,18 +62,31 @@
                     android:id="@+id/main_button_2_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/settings_between_fields"
+                    android:layout_marginTop="@dimen/main_between_buttons"
+                    android:background="@drawable/main_button_off"
+                    android:minHeight="@dimen/min_button_height"
                     android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/main_button_2_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/main_between_buttons"
+                    android:layout_marginTop="@dimen/main_between_buttons"
+                    android:background="@drawable/main_button_off"
+                    android:minHeight="@dimen/min_button_height"
                     android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/main_button_2_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/main_between_buttons"
+                    android:layout_marginRight="@dimen/settings_between_fields"
+                    android:layout_marginTop="@dimen/main_between_buttons"
+                    android:background="@drawable/main_button_off"
+                    android:minHeight="@dimen/min_button_height"
                     android:layout_weight="1" />
 
             </TableRow>
@@ -68,18 +95,27 @@
         <TextView
             android:text="Опишите проблему"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/settings_between_fields"
+            android:layout_marginTop="@dimen/settings_between_fields"
+            android:layout_marginRight="@dimen/settings_between_fields"/>
 
         <EditText
             android:id="@+id/help_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/settings_between_fields"
+            android:layout_marginTop="@dimen/settings_between_fields"
+            android:layout_marginRight="@dimen/settings_between_fields"/>
 
         <Button
             android:id="@+id/send_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Отправить"
+            android:layout_marginTop="@dimen/settings_between_fields"
+            android:layout_marginRight="@dimen/settings_between_fields"
+            android:background="@drawable/main_button_off"
             android:layout_gravity="right"/>
 
     </LinearLayout>

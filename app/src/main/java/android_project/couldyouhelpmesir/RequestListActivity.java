@@ -126,9 +126,6 @@ public class RequestListActivity extends AppCompatActivity
         } else if (id == R.id.new_request) {
             startActivity(new Intent(this, MainActivity.class));
 
-        } else if (id == R.id.users_requests) {
-            startActivity(new Intent(this, UsersRequestsActivity.class));
-
         } else if (id == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }

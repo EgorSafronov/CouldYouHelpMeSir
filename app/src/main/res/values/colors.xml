@@ -5,4 +5,12 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackground">#FF0000</color>
     <color name="colorGold">#FFD700</color>
+    <color name="colorTomato">#FF6347</color>
+    <color name="colorOrangeRed">#FF4500</color>
+    <color name="colorLightCyan">#E0FFFF</color>
+    <color name="colorPaleTurquoise">#AFEEEE</color>
+    <color name="colorCalcBackground">#d8ffec</color>
+    <color name="colorAzure">#F0FFFF</color>
+    <color name="colorBirthday">#280197</color>
+    <color name="colorCoral">#FF7F50</color>
 </resources>
