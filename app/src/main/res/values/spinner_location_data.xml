@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="country_list">
+        <item>Россия</item>
+        <item>Франция</item>
+        <item>Испания</item>
+        <item>Германия</item>
+    </string-array>
+
+    <string-array name="city_russia">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+        <item>Челябинск</item>
+    </string-array>
+
+    <string-array name="city_france">
+        <item>Париж</item>
+        <item>Лион</item>
+        <item>Ницца</item>
+        <item>Бордо</item>
+    </string-array>
+
+    <string-array name="city_spain">
+        <item>Мадрид</item>
+        <item>Барселона</item>
+        <item>Севилья</item>
+        <item>Малага</item>
+    </string-array>
+
+    <string-array name="city_german">
+        <item>Берлин</item>
+        <item>Гамбург</item>
+        <item>Мюнхен</item>
+        <item>Дортмунд</item>
+    </string-array>
+
+</resources>

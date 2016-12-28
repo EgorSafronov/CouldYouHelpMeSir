@@ -74,7 +74,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <Button
+         <TextView
+             android:text="Укажите страну"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/settings_between_fields"/>
+         <Spinner
+             android:id="@+id/spinner_country"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:entries="@array/country_list"
+             />
+
+        <TextView
+            android:text="Укажите город"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/settings_between_fields"/>
+         <Spinner
+             android:id="@+id/spinner_city"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"/>
+
+            <Button
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

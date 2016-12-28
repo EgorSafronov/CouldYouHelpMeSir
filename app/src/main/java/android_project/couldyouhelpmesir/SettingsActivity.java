@@ -14,16 +14,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 
 public class SettingsActivity extends AppCompatActivity
-        implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+        implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,
+        Spinner.OnItemSelectedListener {
     EditText first_name;
     EditText second_name;
     EditText email;
     EditText phone_number;
+    Spinner spinner_country;
+    Spinner spinner_city;
     ScrollView scrollView;
     SharedPreferences mSettings;
 
@@ -51,6 +57,12 @@ public class SettingsActivity extends AppCompatActivity
 
         phone_number = (EditText) findViewById(R.id.phone_number);
         phone_number.setText(mSettings.getString(DATA_PHONE_NUMBER, ""));
+
+        spinner_country = (Spinner) findViewById(R.id.spinner_country);
+        spinner_country.setOnItemSelectedListener(this);
+
+        spinner_city = (Spinner) findViewById(R.id.spinner_city);
+//        spinner_city.setOnItemClickListener(this);
 
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(this);
@@ -118,5 +130,33 @@ public class SettingsActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//        String country = spinner_country.getSelectedItem().toString();
+//        Log.d("!!!",  country);
+//        spinner_city = (Spinner) findViewById(R.id.spinner_city);
+//        ArrayAdapter<CharSequence> adapter;
+//        if (country == "Германия") {
+//            adapter = ArrayAdapter.createFromResource(this, R.array.city_german, R.layout.support_simple_spinner_dropdown_item);
+//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            spinner_city.setAdapter(adapter);
+
+//        }
+
+//        //Установка слушателя для выпадающего списка
+//        Spinner spinner = (Spinner) findViewById(R.id.spinner_city);
+//        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемента spinner
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, , android.R.layout.simple_spinner_item);
+//        // Определяем разметку для использования при выборе элемента
+//        // Применяем адаптер к элементу spinner
+//        spinner.setAdapter(adapter);
+//         
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
