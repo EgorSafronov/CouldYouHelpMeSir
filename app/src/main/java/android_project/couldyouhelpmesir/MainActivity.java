@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,10 +42,12 @@ public class MainActivity extends AppCompatActivity
 
     Button templates[] = new Button[6];
     Button sendRequest;
+    Button deleteRequest;
+    TextView deleteText;
     DatabaseReference mDatabase;
     EditText problem;
-    boolean inDanger = false;
     boolean button_touched = false;
+    public static boolean inDanger = false;
 
 
     @Override
@@ -95,6 +98,19 @@ public class MainActivity extends AppCompatActivity
         }
         sendRequest.setOnClickListener(this);
         problem = (EditText) findViewById(R.id.help_text);
+        deleteRequest = (Button) findViewById(R.id.request_delete);
+        deleteText = (TextView) findViewById(R.id.request_info);
+        if (!inDanger) {
+            deleteText.setVisibility(View.GONE);
+            deleteRequest.setVisibility(View.GONE);
+            sendRequest.setVisibility(View.VISIBLE);
+        }
+        else {
+            deleteText.setVisibility(View.VISIBLE);
+            deleteRequest.setVisibility(View.VISIBLE);
+            sendRequest.setVisibility(View.GONE);
+        }
+        deleteRequest.setOnClickListener(this);
     }
 
     @Override
@@ -109,10 +125,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-        if (inDanger) {
-            return;
-        }
-
         int request_type = -1;
         String first_name = mSettings.getString(SettingsActivity.DATA_FIRST_NAME, "");
         String second_name = mSettings.getString(SettingsActivity.DATA_SECOND_NAME, "");
@@ -124,10 +136,21 @@ public class MainActivity extends AppCompatActivity
 
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         String userID = telephonyManager.getDeviceId();
+
         if (userID == null) {
             userID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         }
-
+        if (view == deleteRequest) {
+            inDanger = false;
+            deleteText.setVisibility(View.GONE);
+            deleteRequest.setVisibility(View.GONE);
+            sendRequest.setVisibility(View.VISIBLE);
+            mDatabase.child(Integer.toString(country)).child(Integer.toString(city)).child(userID).removeValue();
+            return;
+        }
+        if (inDanger) {
+            return;
+        }
         for (int i = 0; i < 6; i++) {
             if (view == templates[i]) {
                 if (!button_touched) {
@@ -156,6 +179,9 @@ public class MainActivity extends AppCompatActivity
             for (int i = 0; i < 6; i++) {
                 templates[i].setAlpha(1);
             }
+            deleteRequest.setVisibility(View.VISIBLE);
+            deleteText.setVisibility(View.VISIBLE);
+            sendRequest.setVisibility(View.GONE);
         }
     }
 
