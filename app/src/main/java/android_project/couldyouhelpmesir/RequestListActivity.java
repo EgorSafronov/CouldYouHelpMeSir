@@ -107,7 +107,6 @@ public class RequestListActivity extends AppCompatActivity
         if (userID == null) {
             userID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         }
-        recyclerView.addItemDecoration(new RecylcerDividersDecorator(getResources().getColor(R.color.colorPrimaryDark)));
 
         loadData();
 

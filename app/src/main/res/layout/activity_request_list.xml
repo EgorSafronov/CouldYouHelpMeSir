@@ -10,6 +10,7 @@
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,6 +23,16 @@
             android:layout_marginTop="?attr/actionBarSize" />
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorBirthday"
+        android:textSize="@dimen/big_text_size"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="INTERNET CONNETCION ERROR"/>
 
     <include
         layout="@layout/app_bar_main"

@@ -151,7 +151,22 @@ public class MainActivity extends AppCompatActivity
         if (inDanger) {
             return;
         }
-        int request_type = -1;
+
+        if (view == sendRequest){
+            Log.wtf("!", country + ":" + city + ":" + userID);
+            mDatabase.child(Integer.toString(country)).child(Integer.toString(city)).child(userID).setValue(new Request(first_name, second_name, email, phone_number,
+                    problem.getText().toString(), request_type, userID));
+            inDanger = true;
+            problem.setText("");
+            for (int i = 0; i < 6; i++) {
+                templates[i].setAlpha(1);
+            }
+            deleteRequest.setVisibility(View.VISIBLE);
+            deleteText.setVisibility(View.VISIBLE);
+            sendRequest.setVisibility(View.GONE);
+        }
+
+        request_type = -1;
         for (int i = 0; i < 6; i++) {
             if (view == templates[i]) {
                 if (!button_touched) {
@@ -170,19 +185,6 @@ public class MainActivity extends AppCompatActivity
                 }
 //                templates[i].setVisibility(View.INVISIBLE);
             }
-        }
-        if (view == sendRequest){
-            Log.wtf("!", country + ":" + city + ":" + userID);
-            mDatabase.child(Integer.toString(country)).child(Integer.toString(city)).child(userID).setValue(new Request(first_name, second_name, email, phone_number,
-                    problem.getText().toString(), request_type, userID));
-            inDanger = true;
-            problem.setText("");
-            for (int i = 0; i < 6; i++) {
-                templates[i].setAlpha(1);
-            }
-            deleteRequest.setVisibility(View.VISIBLE);
-            deleteText.setVisibility(View.VISIBLE);
-            sendRequest.setVisibility(View.GONE);
         }
     }
 
