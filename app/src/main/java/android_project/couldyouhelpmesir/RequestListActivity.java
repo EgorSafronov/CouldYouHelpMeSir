@@ -1,7 +1,10 @@
 package android_project.couldyouhelpmesir;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -12,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +41,8 @@ public class RequestListActivity extends AppCompatActivity
 
     public android.support.v7.widget.Toolbar toolbar;
 
+    public static SharedPreferences mSettings;
+    public static final String APP_PREFERENCES = "helpsettings";
 
     private RecyclerView recyclerView;
 
@@ -47,6 +53,9 @@ public class RequestListActivity extends AppCompatActivity
 
     DatabaseReference mDatabase;
 
+    String userID;
+
+
 
     ValueEventListener listener = new ValueEventListener() {
         @Override
@@ -54,6 +63,7 @@ public class RequestListActivity extends AppCompatActivity
             for (DataSnapshot snap : snapshot.getChildren()) {
                 Request cur = snap.getValue(Request.class);
                 if (cur != null) {
+                //if ((cur != null) && (cur.ID != userID)) {
                     requests.add(cur);
                 }
             }
@@ -67,8 +77,12 @@ public class RequestListActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.wtf("kapa", "start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        Integer country = mSettings.getInt(SettingsActivity.DATA_COUNTRY, 0);
+        Integer city = mSettings.getInt(SettingsActivity.DATA_CITY, 0);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,7 +100,13 @@ public class RequestListActivity extends AppCompatActivity
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(Integer.toString(country)).child(Integer.toString(city));
+
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        userID = telephonyManager.getDeviceId();
+        if (userID == null) {
+            userID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
 
         loadData();
 
@@ -94,7 +114,11 @@ public class RequestListActivity extends AppCompatActivity
 
     private void loadData() {
         requests.clear();
-        mDatabase.addListenerForSingleValueEvent(listener);
+        new Thread(new Runnable() {
+            public void run() {
+                mDatabase.addListenerForSingleValueEvent(listener);
+            }
+        }).start();
     }
 
 

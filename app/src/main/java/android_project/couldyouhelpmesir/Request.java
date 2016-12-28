@@ -12,17 +12,19 @@ public class Request {
     public String phone_number;
     public String problem;
     public int type;
+    public String ID;
 
     public Request() {};
 
     public Request(String first_name, String second_name, String email, String phone_number,
-                   String problem, int type) {
+                   String problem, int type, String ID) {
         this.first_name = first_name;
         this.second_name = second_name;
         this.email = email;
         this.phone_number = phone_number;
         this.problem = problem;
         this.type = type;
+        this.ID = ID;
     }
 
 }

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_PHONE_STATE);
-
+        Log.d(TAG, Integer.toString(permissionCheck));
         if (permissionCheck == -1) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
         }
@@ -117,10 +118,15 @@ public class MainActivity extends AppCompatActivity
         String second_name = mSettings.getString(SettingsActivity.DATA_SECOND_NAME, "");
         String email = mSettings.getString(SettingsActivity.DATA_EMAIL, "");
         String phone_number = mSettings.getString(SettingsActivity.DATA_PHONE_NUMBER, "");
+        Integer country = mSettings.getInt(SettingsActivity.DATA_COUNTRY, 0);
+        Integer city = mSettings.getInt(SettingsActivity.DATA_CITY, 0);
 //        String userID = mSettings.getString("id", "");
 
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         String userID = telephonyManager.getDeviceId();
+        if (userID == null) {
+            userID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
 
         for (int i = 0; i < 6; i++) {
             if (view == templates[i]) {
@@ -142,9 +148,14 @@ public class MainActivity extends AppCompatActivity
             }
         }
         if (view == sendRequest){
-            mDatabase.child(userID).setValue(new Request(first_name, second_name, email, phone_number,
-                    problem.getText().toString(), request_type));
+            Log.wtf("!", country + ":" + city + ":" + userID);
+            mDatabase.child(Integer.toString(country)).child(Integer.toString(city)).child(userID).setValue(new Request(first_name, second_name, email, phone_number,
+                    problem.getText().toString(), request_type, userID));
             inDanger = true;
+            problem.setText("");
+            for (int i = 0; i < 6; i++) {
+                templates[i].setAlpha(1);
+            }
         }
     }
 

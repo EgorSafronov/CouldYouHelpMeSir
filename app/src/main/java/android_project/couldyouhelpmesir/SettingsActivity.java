@@ -138,7 +138,6 @@ public class SettingsActivity extends AppCompatActivity
         editor.putInt(DATA_CITY, City);
 
         editor.commit();
-        if (flag_filled) finish();
     }
     @Override
     public void onBackPressed() {
