@@ -31,7 +31,8 @@
             android:visibility="gone"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="INTERNET CONNECTION ERROR"/>
+            android:background="@color/colorCalcBackground"
+            android:text="NO REQUESTS"/>
 
     </FrameLayout>
 

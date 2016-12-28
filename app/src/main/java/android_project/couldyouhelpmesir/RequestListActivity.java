@@ -3,6 +3,8 @@ package android_project.couldyouhelpmesir;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -101,6 +103,15 @@ public class RequestListActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         errorTextView = (TextView) findViewById(R.id.error_message);
 
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (!(networkInfo != null && networkInfo.isConnected())) {
+            recyclerView.setVisibility(GONE);
+            errorTextView.setVisibility(View.VISIBLE);
+            errorTextView.setText("ERROR INTERNET CONNECTION");
+            return;
+        }
+
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         mDatabase = FirebaseDatabase.getInstance().getReference().child(Integer.toString(country)).child(Integer.toString(city));
@@ -128,6 +139,7 @@ public class RequestListActivity extends AppCompatActivity
         } else {
             recyclerView.setVisibility(GONE);
             errorTextView.setVisibility(View.VISIBLE);
+            errorTextView.setText("NO REQUESTS");
         }
     }
 
@@ -138,8 +150,14 @@ public class RequestListActivity extends AppCompatActivity
             recyclerView.setAdapter(adapter);
         }
         adapter.setRequests(requests);
-        recyclerView.setVisibility(View.VISIBLE);
-        errorTextView.setVisibility(GONE);
+        if (!requests.isEmpty()) {
+            recyclerView.setVisibility(View.VISIBLE);
+            errorTextView.setVisibility(GONE);
+        } else {
+            recyclerView.setVisibility(GONE);
+            errorTextView.setVisibility(View.VISIBLE);
+            errorTextView.setText("NO REQUESTS");
+        }
     }
 
     @Override
